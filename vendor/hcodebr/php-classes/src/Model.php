@@ -19,7 +19,7 @@ class Model {
                 return $this->values[$fieldName];
             break;
             case "set";
-                $this->values[$fieldName] = args[0];
+                $this->values[$fieldName] = $args[0];
             break;
         }
     }
