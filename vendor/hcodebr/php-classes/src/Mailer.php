@@ -73,7 +73,7 @@ $this->mail->SMTPAuth = true;
 $this->mail->Username = Mailer::USERNAME;
 
 //Password to use for SMTP authentication
-$this->mail->Password = "98481227";
+$this->mail->Password = "secret";
 
 //Set who the message is to be sent from
 $this->mail->setFrom('alissonsitesneci@gmail.com', Mailher::NAME_FROM);
