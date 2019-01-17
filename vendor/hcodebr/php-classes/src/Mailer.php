@@ -10,24 +10,18 @@ class Mailer {
     const NAME_FROM = "Hcode Store";
     private $mail;
 
-    public function __construct($toAddress, $toName, $subject, $data = array()){
-
-    
-        
-        $config = array(
-            "tpl_dir"       => $_SERVER["DOCUMENT_ROOT"]."/views/email/",
-            "cache_dir"     => $_SERVER["DOCUMENT_ROOT"]."/views-cache/",
-            "debug"         => false
-        );
-
-        Tpl::configure( $config );
-
-        $tpl = new Tpl;
-
-        foreach ($data as $key => $value){
-
-            $tpl->assign($key, $value);
-        };
+    public function __construct($toAddress, $toName, $subject, $tplName, $data = array())
+	{
+		$config = array(
+			"tpl_dir"       => $_SERVER["DOCUMENT_ROOT"]."/views/email/",
+			"cache_dir"     => $_SERVER["DOCUMENT_ROOT"]."/views-cache/",
+			"debug"         => false
+	    );
+		Tpl::configure( $config );
+		$tpl = new Tpl;
+		foreach ($data as $key => $value) {
+			$tpl->assign($key, $value);
+		};
 
         $html = $tpl->draw($tplName, true);
 
@@ -76,7 +70,7 @@ $this->mail->Username = Mailer::USERNAME;
 $this->mail->Password = "secret";
 
 //Set who the message is to be sent from
-$this->mail->setFrom('alissonsitesneci@gmail.com', Mailher::NAME_FROM);
+$this->mail->setFrom('alissonsitesneci@gmail.com', Mailer::NAME_FROM);
 
 //Set an alternative reply-to address
 $this->mail->addReplyTo('replyto@example.com', 'First Last');

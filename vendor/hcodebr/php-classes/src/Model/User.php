@@ -140,12 +140,11 @@ class User extends Model{
          SELECT *
          FROM tb_persons a
          INNER JOIN tb_users b USING(idperson)
-         WHERE a.desemail = :email;
-     ", array(
+         WHERE a.desemail = :email;", array(
          ":email"=>$email
      ));
 
-     var_dump($results);
+   
      if (count($results) === 0)
      {
          throw new \Exception("Não foi possível recuperar a senha.");
@@ -212,15 +211,13 @@ class User extends Model{
      }
  }
 
-    public static function setForgotUsed($idrecovery){
-
-        $sql = new Sql();
-
-        $sql->query("UPDATE tb_userspasswordsrecoveries SET dtrecovery = NOW() WHERE idrecovery = :idrecovery", array(
-            "idrecovery"=>$idrecovery
-        ));
-
-    }
+ public static function setForgotUsed($idrecovery)
+	{
+		$sql = new Sql();
+		$sql->query("UPDATE tb_userspasswordsrecoveries SET dtrecovery = NOW() WHERE idrecovery = :idrecovery", array(
+			":idrecovery"=>$idrecovery
+		));
+	}
 
     public function setPassword ($password){
 
@@ -231,6 +228,13 @@ class User extends Model{
             ":iduser"=>$this->getiduser()
         ));
     }
+
+    public static function getPasswordHash($password)
+	{
+		return password_hash($password, PASSWORD_DEFAULT, [
+			'cost'=>12
+		]);
+	}
 
 }
 
