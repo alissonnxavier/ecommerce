@@ -464,6 +464,25 @@ $app->get("/admin/categories/:idcategory/products/:idproduct/remove", function($
 	
 });
 
+$app->get("/products/:desurl", function($desurl){
+
+	$product = new Product();
+
+	$product->getFromURL($desurl);
+
+	$page = new Page();
+
+	var_dump($product->getValues());
+
+	$page->setTpl("product-detail", [
+		'product'=>$product->getValues(),
+		'categories'=>$product->getCategories()
+	]);
+
+	
+
+});
+
 $app->run();
 
  ?>
