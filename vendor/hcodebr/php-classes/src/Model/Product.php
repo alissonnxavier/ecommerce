@@ -140,7 +140,7 @@ public function getFromURL ($desurl) {
         ':desurl'=>$desurl
     ]);
 
-    $this->setData($rows);
+    $this->setData($rows[0]);
 }
 
 public function getCategories () {
