@@ -67,25 +67,23 @@ public function delete (){
 
 }
 
-public function checkPhoto (){
+	public function checkPhoto()
+	{
+		if (file_exists(
+			$_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 
+			"res" . DIRECTORY_SEPARATOR . 
+			"site" . DIRECTORY_SEPARATOR . 
+			"img" . DIRECTORY_SEPARATOR . 
+			"products" . DIRECTORY_SEPARATOR . 
+			$this->getidproduct() . ".jpg"
+			)) {
+			$url = "/res/site/img/products/" . $this->getidproduct() . ".jpg";
+		} else {
+			$url = "/res/site/img/product.jpg";
+		}
+		return $this->setdesphoto($url);
+	}
 
-    if(file_exists(
-        $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR .
-        "res" . DIRECTORY_SEPARATOR . 
-        "site" . DIRECTORY_SEPARATOR .
-        "img" . DIRECTORY_SEPARATOR .
-        "products" . DIRECTORY_SEPARATOR . 
-        $this->getidproduct() . ".jpg"
-    )) {
-
-        $url = "/res/site/img/products/" . $this->getidproduct() . ".jpg";
-    } else {
-
-        $url = "/res/site/img/product.jpg";
-    }
-
-    return $this->setdesphoto($url);
-}
 
 public function getValues () {
 
@@ -96,41 +94,32 @@ public function getValues () {
     return $values;
 }
 
-public function setPhoto ($file) {
-
-    $extension = explode(".", $file["name"]);
-    $extension = end($extension);
-    
-    switch ($extension) {
-
-        case "jpg";
-        case "jpeg";
-        $image = imagecreateFromJpeg($file["tmp_name"]);
-        break;
-
-        case "gif";
-        $image = imagecreateFromgif($file["tmp_name"]);
-        break;
-
-        case "png";
-        $image = imagecreateFrompng($file["tmp_name"]);
-        break;
-
-    }
-
-    $dist = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR .
-    "res" . DIRECTORY_SEPARATOR . 
-    "site" . DIRECTORY_SEPARATOR .
-    "img" . DIRECTORY_SEPARATOR .
-    "products" . DIRECTORY_SEPARATOR . 
-    $this->getidproduct() . ".jpg";
-
-    imagejpeg($image, $dist);
-
-    imagedestroy($image);
-
-    $this->checkPhoto();
-}
+public function setPhoto($file)
+	{
+		$extension = explode('.', $file['name']);
+		$extension = end($extension);
+		switch ($extension) {
+			case "jpg":
+			case "jpeg":
+			$image = imagecreatefromjpeg($file["tmp_name"]);
+			break;
+			case "gif":
+			$image = imagecreatefromgif($file["tmp_name"]);
+			break;
+			case "png":
+			$image = imagecreatefrompng($file["tmp_name"]);
+			break;
+		}
+		$dist = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 
+			"res" . DIRECTORY_SEPARATOR . 
+			"site" . DIRECTORY_SEPARATOR . 
+			"img" . DIRECTORY_SEPARATOR . 
+			"products" . DIRECTORY_SEPARATOR . 
+			$this->getidproduct() . ".jpg";
+		imagejpeg($image, $dist);
+		imagedestroy($image);
+		$this->checkPhoto();
+	}
 
 public function getFromURL ($desurl) {
 
