@@ -35,7 +35,7 @@ Class Cart extends Model {
 
                     $user = User::getFromSession();
 
-                    $data['iduser'] = $super->getiduser();
+                    $data['iduser'] = $user->getiduser();
 
                 }
 
