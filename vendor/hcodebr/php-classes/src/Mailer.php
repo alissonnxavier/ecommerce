@@ -29,8 +29,8 @@ class Mailer {
         'verify_peer' => false,
         'verify_peer_name' => false,
         'allow_self_signed' => true
-        )
-        );
+        ));
+        
 		//Enable SMTP debugging
 		// 0 = off (for production use)
 		// 1 = client messages
