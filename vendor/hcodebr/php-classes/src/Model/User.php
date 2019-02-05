@@ -141,7 +141,7 @@ class User extends Model{
 
         $data = $results[0];
 
-        $data['desperson'] = utf8_encode(['desperson']);
+        $data['desperson'] = utf8_encode($data['desperson']);
 
         $this->setData($results[0]);
     }
@@ -253,7 +253,7 @@ class User extends Model{
      }
  }
 
- public static function setForgotUsed($idrecovery)
+ public static function setFogotUsed($idrecovery)
 	{
 		$sql = new Sql();
 		$sql->query("UPDATE tb_userspasswordsrecoveries SET dtrecovery = NOW() WHERE idrecovery = :idrecovery", array(
