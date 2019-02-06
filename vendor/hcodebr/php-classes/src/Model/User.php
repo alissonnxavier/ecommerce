@@ -12,6 +12,7 @@ class User extends Model{
     const SECRET = "HcodePhp7_Secret";
     const ERROR = "UserError";
     const ERROR_REGISTER = "UserErrorRegister";
+    const SUCCESS = 'UserSuccess';
 
     public static function  getFromSession(){
 
@@ -115,7 +116,8 @@ class User extends Model{
         return $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b USING(idperson) ORDER BY b.desperson");
     }
 
-    public function save()
+   
+	public function save()
 	{
         $sql = new Sql();
         
@@ -146,24 +148,21 @@ class User extends Model{
         $this->setData($results[0]);
     }
 
-    public function update(){
-
+    public function update()
+    {
         $sql = new Sql();
 
-        $results = $sql->select("CALL sp_usersupdate_save(:iduser, :desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", 
-        array(
+        $results = $sql->select("CALL sp_usersupdate_save(:iduser, :desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin);", array(
             ":iduser"=>$this->getiduser(),
             ":desperson"=>utf8_encode($this->getdesperson()),
             ":deslogin"=>$this->getdeslogin(),
-            ":despassword"=>User::getPasswordHash($this->getdespassword()),
+            ":despassword"=>$this->getdespassword(),
             ":desemail"=>$this->getdesemail(),
             ":nrphone"=>$this->getnrphone(),
-            ":inadmin"=>$this->getinadmin(),
-
+            ":inadmin"=>$this->getinadmin()
         ));
-
-        $this->setData($results[0]);
         
+        $this->setData($results[0]);
     }
 
     public function delete(){
@@ -329,6 +328,25 @@ class User extends Model{
 
         return (count($results) > 0);
     }
+
+
+public static function setSuccess ($msg) {
+
+    $_SESSION[User::SUCCESS] = $msg;
+}
+
+public static function getSuccess () {
+
+    $msg = (isset($_SESSION[User::SUCCESS]) && $_SESSION[User::SUCCESS]) ? $_SESSION[User::SUCCESS] : '';
+
+    User::clearSuccess();
+
+    return $msg;
+}
+
+public static function clearSuccess () {
+
+    $_SESSION[User::SUCCESS] = NULL;
 }
 
 
@@ -336,4 +354,19 @@ class User extends Model{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
 ?>
