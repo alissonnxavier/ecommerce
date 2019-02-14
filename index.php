@@ -1,8 +1,6 @@
 <?php 
 session_start();
 require_once("vendor/autoload.php");
-require_once("functions.php");
-
 
 use \Slim\Slim;
 use \Hcode\Page;
@@ -15,10 +13,15 @@ use \Hcode\Model\Address;
 use \Hcode\Model\Order;
 use \Hcode\Model\OrderStatus;
 
-
 $app = new Slim();
 
 $app->config('debug', true);
+
+
+require_once("functions.php");
+require_once("admin-orders.php");
+
+
 
 $app->get('/', function() {
 
