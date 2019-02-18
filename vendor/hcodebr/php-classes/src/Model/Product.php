@@ -163,7 +163,7 @@ public static function getPage($page = 1, $itemsPerPage = 10)
 		];
     }
     
-	public static function getPageSearch($search, $page = 1, $itemsPerPage = 10)
+	public static function getPageSearch($search, $page = 1, $itemsPerPage = 4)
 	{
         
         $start = ($page - 1) * $itemsPerPage;

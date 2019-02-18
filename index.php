@@ -393,6 +393,7 @@ $app->get("/admin/products", function(){
 	User::verifyLogin();
 
 	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+
 	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
 
 	if ($search != '') {
@@ -408,33 +409,23 @@ $app->get("/admin/products", function(){
 
 	for ($x = 0; $x < $pagination['pages']; $x++)
 	{
-
 		array_push($pages, [
 			'href'=>'/admin/products?'.http_build_query([
 				'page'=>$x+1,
 				'search'=>$search
 			]),
-
 			'text'=>$x+1
 		]);
 	}
 
-	$categories = Category::listAll();
-
-	$page = new PageAdmin();
-		
-	$page->setTpl("products", [
-		'products'=>$pagination['data'],
-		'search'=>$search,
-		'pages'=>$pages
-	]);
-
 	$products = Product::listAll();
 
 	$page = new PageAdmin();
-
+	
 	$page->setTpl("products", [
-		"products"=>$products
+		"products"=>$pagination['data'],
+		"search"=>$search,
+		"pages"=>$pages
 	]);
 });
 
